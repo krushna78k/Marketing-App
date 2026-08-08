@@ -190,7 +190,7 @@ const ReportsHub = () => {
         {activeTab === 'overview' && reportData && (
           <div className="rh-tab-pane rh-container-centered">
             <h2 className="rh-section-title">Conversion Funnel</h2>
-            <div className="rh-glass-panel" style={{ height: '500px' }}>
+            <div className="card" style={{ height: '500px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={reportData.funnel} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
@@ -212,7 +212,7 @@ const ReportsHub = () => {
         {activeTab === 'channels' && reportData && (
           <div className="rh-tab-pane rh-grid-3">
             
-            <div className="rh-glass-panel rh-stat-card rh-theme-email">
+            <div className="card rh-stat-card rh-theme-email">
                <div className="rh-stat-header">
                  <div className="rh-stat-icon-wrapper">
                    <Mail size={24} />
@@ -234,7 +234,7 @@ const ReportsHub = () => {
                </div>
             </div>
 
-            <div className="rh-glass-panel rh-stat-card rh-theme-sms">
+            <div className="card rh-stat-card rh-theme-sms">
                <div className="rh-stat-header">
                  <div className="rh-stat-icon-wrapper">
                    <MessageSquare size={24} />
@@ -256,7 +256,7 @@ const ReportsHub = () => {
                </div>
             </div>
 
-            <div className="rh-glass-panel rh-stat-card rh-theme-whatsapp">
+            <div className="card rh-stat-card rh-theme-whatsapp">
                <div className="rh-stat-header">
                  <div className="rh-stat-icon-wrapper">
                    <MessageCircle size={24} />
@@ -285,7 +285,7 @@ const ReportsHub = () => {
         {activeTab === 'sources' && reportData && (
           <div className="rh-tab-pane rh-container-centered">
             <h2 className="rh-section-title">Lead Source Distribution</h2>
-            <div className="rh-glass-panel" style={{ height: '550px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="card" style={{ height: '550px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {reportData.sources.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>

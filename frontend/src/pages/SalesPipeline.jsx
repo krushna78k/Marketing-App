@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Plus, DollarSign } from 'lucide-react';
+import { Plus, DollarSign, User } from 'lucide-react';
 import { getDeals, updateDeal, createDeal } from '../services/dealService';
 import './SalesPipeline.css';
 
@@ -90,7 +90,7 @@ const SalesPipeline = () => {
         <div className="pipeline-board">
           <DragDropContext onDragEnd={onDragEnd}>
             {STAGES.map(stage => (
-              <div className="pipeline-column glass-panel" key={stage}>
+              <div className="pipeline-column" key={stage}>
                 <div className="column-header">
                   <h3>{stage}</h3>
                   <span className="deal-count">{columns[stage].length}</span>
@@ -113,7 +113,7 @@ const SalesPipeline = () => {
                             >
                               <div className="deal-title">{deal.title}</div>
                               <div className="deal-value"><DollarSign size={14}/> {deal.value?.toLocaleString()}</div>
-                              {deal.leadId && <div className="deal-lead">{deal.leadId.name}</div>}
+                              {deal.leadId && <div className="deal-lead"><User size={12}/> {deal.leadId.name}</div>}
                             </div>
                           )}
                         </Draggable>
@@ -130,7 +130,7 @@ const SalesPipeline = () => {
 
       {showModal && (
         <div className="modal-overlay">
-          <div className="modal-content glass-panel">
+          <div className="modal-content" style={{ maxWidth: '500px' }}>
             <h2>Add Deal</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group">

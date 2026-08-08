@@ -208,37 +208,38 @@ const CampaignList = () => {
         </button>
       </div>
 
-      <div className="glass-panel table-container">
-        <div className="table-toolbar">
-          <div className="search-bar">
-            <Search size={18} className="text-muted" />
-            <input type="text" placeholder="Search campaigns..." className="input-field" />
+      <div className="card table-container" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="table-toolbar" style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', background: 'rgba(0,0,0,0.2)' }}>
+          <div className="search-bar" style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', padding: '8px 12px', borderRadius: 'var(--radius-sm)', width: '300px' }}>
+            <Search size={16} className="text-muted" />
+            <input type="text" placeholder="Search campaigns..." className="input-field" style={{ border: 'none', background: 'transparent', padding: 0 }} />
           </div>
         </div>
 
         {loading ? (
-          <div className="loading-state">Loading campaigns...</div>
+          <div className="empty-state" style={{ padding: '60px' }}>Loading campaigns...</div>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Budget</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {campaigns.length === 0 ? (
+          <div className="data-table-wrapper">
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <td colSpan="5" className="empty-state">
-                    <div className="empty-state-icon">
-                      <Search size={40} />
-                    </div>
-                    No campaigns found. Create one to get started!
-                  </td>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Budget</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
                 </tr>
+              </thead>
+              <tbody>
+                {campaigns.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="empty-state">
+                      <div className="empty-state-icon">
+                        <Search size={32} />
+                      </div>
+                      No campaigns found. Create one to get started!
+                    </td>
+                  </tr>
               ) : (
                 campaigns.map(camp => (
                   <tr key={camp._id}>
@@ -270,14 +271,15 @@ const CampaignList = () => {
                   </tr>
                 ))
               )}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
       {showModal && (
         <div className="modal-overlay" style={{ overflowY: 'auto' }}>
-          <div className="modal-content glass-panel" style={{ maxWidth: '850px', margin: '40px auto' }}>
+          <div className="modal-content" style={{ maxWidth: '850px', margin: '40px auto' }}>
             <h2>{editingId ? 'Edit Campaign' : 'Create Campaign'}</h2>
             <form onSubmit={handleSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>

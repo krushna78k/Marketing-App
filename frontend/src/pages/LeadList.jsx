@@ -186,27 +186,28 @@ const LeadList = () => {
         </div>
       </div>
 
-      <div className="glass-panel table-container">
+      <div className="card table-container">
         <div className="table-toolbar">
           <div className="search-bar">
-            <Search size={18} className="text-muted" />
-            <input type="text" placeholder="Search leads..." className="input-field" />
+            <Search size={16} className="text-muted" />
+            <input type="text" placeholder="Search leads..." className="input-field" style={{ border: 'none', background: 'transparent', padding: 0 }} />
           </div>
         </div>
 
         {loading ? (
-          <div className="loading-state">Loading leads...</div>
+          <div className="empty-state" style={{ padding: '60px' }}>Loading leads...</div>
         ) : (
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Lead Info</th>
-                <th>Contact</th>
-                <th>Status & Tracking</th>
-                <th>Source / Campaign</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+          <div className="data-table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Lead Info</th>
+                  <th>Contact</th>
+                  <th>Status & Tracking</th>
+                  <th>Source / Campaign</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
+                </tr>
+              </thead>
             <tbody>
               {leads.length === 0 ? (
                 <tr>
@@ -272,13 +273,14 @@ const LeadList = () => {
                 ))
               )}
             </tbody>
-          </table>
+            </table>
+          </div>
         )}
       </div>
 
       {showModal && (
         <div className="modal-overlay" style={{ overflowY: 'auto' }}>
-          <div className="modal-content glass-panel lead-modal-content" style={{ maxWidth: '800px', margin: '40px auto' }}>
+          <div className="modal-content lead-modal-content" style={{ maxWidth: '800px', margin: '40px auto' }}>
             <h2>{editingLead ? 'Edit Lead' : 'Add Lead'}</h2>
             <form onSubmit={handleSubmit}>
               
