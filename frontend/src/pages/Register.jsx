@@ -59,7 +59,7 @@ const Register = () => {
               <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#6D5DF5" />
             </svg>
           </div>
-          <span className="mekka-brand-name">Mekka</span>
+          <span className="mekka-brand-name">Shree</span>
           <span className="mekka-brand-divider">/</span>
           <span className="mekka-brand-tagline">Where marketing moves.</span>
         </div>
@@ -81,7 +81,7 @@ const Register = () => {
               <span className="mekka-headline-accent">scale your growth.</span>
             </h1>
             <p className="mekka-subhead">
-              Create a new Mekka workspace to orchestrate multi-channel marketing, manage leads, and measure performance.
+              Create a new Shree workspace to orchestrate multi-channel marketing, manage leads, and measure performance.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ const Register = () => {
               <line x1="250" y1="180" x2="280" y2="300" stroke="url(#orbitLineGradReg)" strokeWidth="1.5" />
               <line x1="250" y1="180" x2="120" y2="240" stroke="url(#orbitLineGradReg)" strokeWidth="1.5" />
 
-              {/* Central Mekka Core Node */}
+              {/* Central Shree Core Node */}
               <g transform="translate(250, 180)">
                 <circle cx="0" cy="0" r="28" fill="#FFFFFF" stroke="#6D5DF5" strokeWidth="2" />
                 <path d="M-6 -6 L1.25 -1.25 L6 -6 L1.25 1.25 L6 6 L-1.25 1.25 L-6 6 L-1.25 -1.25 Z" fill="#6D5DF5" transform="scale(1.2)" />
@@ -166,7 +166,7 @@ const Register = () => {
               </svg>
             </div>
             <div>
-              <span className="mekka-brand-name">Mekka</span>
+              <span className="mekka-brand-name">Shree</span>
               <div className="mekka-brand-tagline">Where marketing moves.</div>
             </div>
           </div>
@@ -282,7 +282,7 @@ const Register = () => {
 
       {/* Footer Signature */}
       <footer className="mekka-page-footer">
-        <span>© Mekka Platform</span>
+        <span>© Shree Platform</span>
         <span className="footer-dot">•</span>
         <span>Privacy & Terms</span>
       </footer>
