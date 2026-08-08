@@ -140,16 +140,16 @@ const ReportsHub = () => {
 
   return (
     <div className="page-content email-builder-wrapper" style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 40px)' }}>
-      <div className="page-header" style={{ marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        <div>
+      <div className="page-header" style={{ marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
+        <div style={{ flex: '1 1 300px' }}>
           <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <BarChart2 size={28} color="#10b981" /> Reports & Analytics Hub
           </h1>
           <p>Deep-dive into your Campaign Performance, Lead Sources, and Marketing Channels.</p>
         </div>
         
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <div className="tab-navigation" style={{ display: 'flex', gap: '8px', background: 'rgba(0,0,0,0.2)', padding: '6px', borderRadius: '8px', marginRight: '16px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+          <div className="tab-navigation" style={{ display: 'flex', gap: '8px', background: 'rgba(0,0,0,0.2)', padding: '6px', borderRadius: '8px', flexWrap: 'wrap' }}>
             <button className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
               <Activity size={16} /> Overview
             </button>
@@ -161,7 +161,7 @@ const ReportsHub = () => {
             </button>
           </div>
           
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
              <button className="btn-secondary" onClick={exportCSV} title="Export CSV" style={{ padding: '8px' }}><Download size={18} /> CSV</button>
              <button className="btn-secondary" onClick={exportExcel} title="Export Excel" style={{ padding: '8px', color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.3)' }}><Download size={18} /> Excel</button>
              <button className="btn-primary" onClick={exportPDF} title="Export PDF" style={{ padding: '8px', background: '#ef4444' }}><Download size={18} /> PDF</button>
@@ -173,7 +173,7 @@ const ReportsHub = () => {
         
         {/* OVERVIEW TAB */}
         {activeTab === 'overview' && reportData && (
-          <div style={{ padding: '32px', maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
             <h2 style={{ marginBottom: '24px', color: '#f8fafc' }}>Conversion Funnel</h2>
             <div className="glass-panel" style={{ padding: '32px', height: '400px' }}>
               <ResponsiveContainer>
@@ -198,7 +198,7 @@ const ReportsHub = () => {
 
         {/* CHANNELS TAB */}
         {activeTab === 'channels' && reportData && (
-          <div style={{ padding: '32px', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
+          <div style={{ padding: '32px 16px', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
             
             <div className="glass-panel" style={{ padding: '24px' }}>
                <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: '#3b82f6' }}>
@@ -265,7 +265,7 @@ const ReportsHub = () => {
 
         {/* SOURCES TAB */}
         {activeTab === 'sources' && reportData && (
-          <div style={{ padding: '32px', maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
             <h2 style={{ marginBottom: '24px', color: '#f8fafc' }}>Lead Source Distribution</h2>
             <div className="glass-panel" style={{ padding: '32px', height: '450px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {reportData.sources.length > 0 ? (
