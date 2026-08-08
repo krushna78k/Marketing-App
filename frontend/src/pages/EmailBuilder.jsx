@@ -159,7 +159,7 @@ const EmailBuilder = () => {
       {/* BUILDER TAB */}
       {/* --------------------------------------------------- */}
       {activeTab === 'templates' && (
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: '800px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 120px)', minHeight: '700px' }}>
           
           <div className="eb-config-bar">
             <div className="eb-input-group">
