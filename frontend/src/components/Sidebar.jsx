@@ -37,7 +37,12 @@ const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       <div className="sidebar-header">
         <div className="sidebar-brand" onClick={() => setIsCollapsed(!isCollapsed)}>
           <div className="logo-icon">∞</div>
-          {!isCollapsed && <h2>Shree</h2>}
+          {!isCollapsed && (
+            <div className="brand-text-group">
+              <h2>Shree</h2>
+              <span className="brand-tagline-sub">Digital Marketing</span>
+            </div>
+          )}
         </div>
         {mobileOpen && (
           <button className="mobile-close-btn" onClick={() => setMobileOpen(false)}>

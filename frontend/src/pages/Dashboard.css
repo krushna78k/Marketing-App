@@ -1,62 +1,160 @@
+/* Dashboard.css - Dark Editorial Product Design System */
+
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
+  padding-bottom: 32px;
 }
 
-.page-header {
+/* Loader Screen */
+.dashboard-container.loader-view {
+  height: calc(100vh - 120px);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 16px;
 }
 
-.header-title-area h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 4px;
-  letter-spacing: -0.5px;
+.spin-ring {
+  width: 38px;
+  height: 38px;
+  border: 3px solid rgba(124, 108, 255, 0.2);
+  border-top-color: #7C6CFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.header-title-area p {
+.loader-text {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.header-controls {
+/* ==================================================
+   HEADER SECTION
+   ================================================== */
+.dash-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 4px;
+}
+
+.dash-header-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dash-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748B;
 }
 
-/* Metric Cards */
+.crumb-sep {
+  color: #475569;
+}
+
+.crumb-active {
+  color: #94A3B8;
+}
+
+.dash-header-title-area h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+  margin-top: 2px;
+}
+
+.dash-header-title-area p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.dash-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.date-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-icon {
+  position: absolute;
+  left: 12px;
+  color: #64748B;
+  pointer-events: none;
+}
+
+.dash-select {
+  width: auto;
+  padding-left: 34px !important;
+  padding-right: 28px !important;
+  background: var(--bg-card) !important;
+  cursor: pointer;
+}
+
+.dash-ctrl-btn {
+  padding: 9px 12px;
+}
+
+.notif-btn {
+  position: relative;
+}
+
+.notif-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  background: var(--danger);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+}
+
+.spinning {
+  animation: spin 0.8s linear infinite;
+}
+
+
+/* ==================================================
+   KPI METRIC CARDS (8 Metrics)
+   ================================================== */
 .metric-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
 }
 
 .metric-card {
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-.metric-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-  border-radius: 50%;
-  transform: translate(30%, -30%);
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
 }
 
 .metric-header {
@@ -66,7 +164,7 @@
 }
 
 .metric-title {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--text-muted);
 }
@@ -80,94 +178,230 @@
   justify-content: center;
 }
 
-.metric-icon-wrapper.primary { background: rgba(99, 102, 241, 0.1); color: #818cf8; }
-.metric-icon-wrapper.success { background: rgba(16, 185, 129, 0.1); color: #34d399; }
-.metric-icon-wrapper.warning { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
-.metric-icon-wrapper.danger { background: rgba(239, 68, 68, 0.1); color: #f87171; }
-.metric-icon-wrapper.purple { background: rgba(168, 85, 247, 0.1); color: #c084fc; }
+.metric-icon-wrapper.primary { background: rgba(124, 108, 255, 0.12); color: #9B8FFF; }
+.metric-icon-wrapper.success { background: rgba(16, 185, 129, 0.12); color: #34d399; }
+.metric-icon-wrapper.warning { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
+.metric-icon-wrapper.danger { background: rgba(239, 68, 68, 0.12); color: #f87171; }
+.metric-icon-wrapper.purple { background: rgba(168, 85, 247, 0.12); color: #c084fc; }
 
 .metric-value {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.85rem;
+  font-weight: 800;
   color: var(--text-main);
-  line-height: 1.2;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
-/* Charts Section */
+
+/* ==================================================
+   MAIN ANALYTICS CHARTS SECTION
+   ================================================== */
 .charts-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  gap: 20px;
 }
 
 .chart-card {
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .chart-header {
-  margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .chart-title {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.chart-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.range-pills {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.range-pill {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 4px 10px;
+  font-size: 0.75rem;
   font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.range-pill:hover {
   color: var(--text-main);
 }
 
-.chart-container-inner {
-  height: 300px;
-  width: 100%;
+.range-pill.active {
+  background: rgba(124, 108, 255, 0.2);
+  color: var(--primary);
 }
 
-/* Lists Section */
+.chart-container-inner {
+  height: 280px;
+  width: 100%;
+  position: relative;
+}
+
+/* Empty State Boxes */
+.empty-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding: 24px;
+  color: var(--text-muted);
+}
+
+.empty-icon-circle {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  margin-bottom: 12px;
+}
+
+.empty-state-box h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.empty-state-box p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 260px;
+  line-height: 1.4;
+}
+
+.empty-cta {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+}
+
+.mini-empty {
+  padding: 28px 16px;
+}
+
+.empty-icon-sm {
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+
+/* ==================================================
+   LOWER DASHBOARD PANELS & LISTS
+   ================================================== */
 .lists-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .list-card {
-  padding: 24px;
+  padding: 20px;
 }
 
 .list-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border-color);
 }
 
-.list-title {
-  font-size: 1.05rem;
-  font-weight: 600;
+.panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-title-group h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--text-main);
 }
 
 .list-items {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .list-item {
   display: flex;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
 }
+
+.item-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.item-badge {
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.success-badge { background: rgba(16, 185, 129, 0.12); color: #34d399; }
+.warning-badge { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
 
 .list-item-content {
   flex: 1;
 }
 
 .list-item-title {
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 500;
   color: var(--text-main);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.user-name-tag {
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 .list-item-meta {
@@ -175,29 +409,10 @@
   color: var(--text-muted);
 }
 
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px 20px;
-  height: 100%;
-  color: var(--text-muted);
-}
 
-.empty-state-icon {
-  width: 48px;
-  height: 48px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  color: var(--border-strong);
-}
-
+/* ==================================================
+   RESPONSIVE MEDIA QUERIES
+   ================================================== */
 @media (max-width: 1024px) {
   .charts-grid {
     grid-template-columns: 1fr;
@@ -209,10 +424,16 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
+
   .metric-card {
     padding: 16px;
   }
+
   .metric-value {
+    font-size: 1.5rem;
+  }
+
+  .dash-header-title-area h1 {
     font-size: 1.5rem;
   }
 }
@@ -221,4 +442,8 @@
   .metric-cards {
     grid-template-columns: 1fr;
   }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
