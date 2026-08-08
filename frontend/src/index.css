@@ -250,3 +250,19 @@ body {
   border-color: rgba(239, 68, 68, 0.2);
   color: var(--danger);
 }
+
+/* Global Mobile Responsiveness */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .card, .glass-panel, .modal-content {
+    padding: 16px !important;
+  }
+  
+  body.modal-open {
+    overflow: hidden;
+  }
+}

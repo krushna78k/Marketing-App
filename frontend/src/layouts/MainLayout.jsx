@@ -3,10 +3,18 @@ import Sidebar from '../components/Sidebar';
 import NotificationCenter from '../components/NotificationCenter';
 import './MainLayout.css';
 import { Menu } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const MainLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+  }, [mobileMenuOpen]);
 
   return (
     <div className="layout-container">
@@ -14,7 +22,7 @@ const MainLayout = () => {
       <div className="mobile-header">
         <div className="mobile-logo">
           <div className="logo-icon-small">∞</div>
-          <span style={{ fontWeight: 600 }}>Mekka</span>
+          <span style={{ fontWeight: 600 }}>Shree</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <NotificationCenter />
