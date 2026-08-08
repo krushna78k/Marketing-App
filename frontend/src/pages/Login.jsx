@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogIn, Mail, Lock, Eye, EyeOff, Shield, ArrowRight, TrendingUp, BarChart2, Megaphone, Target, Share2, Sparkles, MessageCircle } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, Lock, Mail, Shield, Sparkles } from 'lucide-react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import './Auth.css';
@@ -14,12 +14,21 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const { email, password, role } = formData;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const moveX = (clientX / window.innerWidth - 0.5) * 15;
+    const moveY = (clientY / window.innerHeight - 0.5) * 15;
+    setMousePos({ x: moveX, y: moveY });
+  };
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -43,148 +52,162 @@ const Login = () => {
       
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Unable to sign in. Please check your credentials and try again.');
+      setError(err.response?.data?.msg || "Couldn't sign you in. Please check your credentials and try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="mkt-auth-page">
-      {/* Soft Marketing Mesh Gradient & Abstract Shapes */}
-      <div className="mkt-mesh-blob blob-purple"></div>
-      <div className="mkt-mesh-blob blob-blue"></div>
-      <div className="mkt-mesh-blob blob-pink"></div>
-
-      <div className="mkt-auth-container">
-        
-        {/* LEFT / MAIN MARKETING HERO SECTION (~55-60%) */}
-        <div className="mkt-hero-section">
-          {/* Top Brand Header */}
-          <div className="mkt-brand-header">
-            <div className="mkt-brand-logo">∞</div>
-            <div>
-              <div className="mkt-brand-name">Mekka</div>
-              <div className="mkt-brand-tagline">Digital Marketing Platform</div>
-            </div>
+    <div className="mekka-page-canvas" onMouseMove={handleMouseMove}>
+      
+      {/* Top Editorial Bar */}
+      <header className="mekka-top-bar">
+        <div className="mekka-brand-lockup">
+          <div className="mekka-signature-mark">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+              <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#6D5DF5" />
+            </svg>
           </div>
-
-          {/* Hero Copy */}
-          <div className="mkt-hero-copy">
-            <h1 className="mkt-hero-title">
-              Turn Ideas Into <br />
-              <span className="mkt-text-gradient">Digital Growth.</span>
-            </h1>
-            <p className="mkt-hero-description">
-              Plan campaigns, connect with customers, generate leads, and measure your marketing performance — all from one powerful platform.
-            </p>
-
-            {/* 3 Marketing Feature Badges */}
-            <div className="mkt-feature-badges">
-              <div className="mkt-badge">
-                <Megaphone size={15} className="badge-icon-purple" />
-                <span>Campaigns</span>
-              </div>
-              <div className="mkt-badge">
-                <TrendingUp size={15} className="badge-icon-pink" />
-                <span>Growth</span>
-              </div>
-              <div className="mkt-badge">
-                <BarChart2 size={15} className="badge-icon-blue" />
-                <span>Analytics</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Abstract Marketing Analytics UI Illustration (Decorative Only) */}
-          <div className="mkt-hero-visual">
-            <div className="mkt-visual-card mkt-card-main">
-              <div className="mkt-card-top">
-                <div className="mkt-card-badge">
-                  <Sparkles size={14} /> Campaign Engagement
-                </div>
-                <div className="mkt-card-channels">
-                  <div className="channel-dot dot-email" title="Email"><Mail size={12} /></div>
-                  <div className="channel-dot dot-social" title="Social"><Share2 size={12} /></div>
-                  <div className="channel-dot dot-chat" title="WhatsApp/SMS"><MessageCircle size={12} /></div>
-                </div>
-              </div>
-
-              {/* Decorative Curve Line Graph */}
-              <div className="mkt-graph-wrapper">
-                <svg viewBox="0 0 400 120" className="mkt-svg-graph">
-                  <defs>
-                    <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#818cf8" stopOpacity="0.4" />
-                      <stop offset="100%" stopColor="#c084fc" stopOpacity="0" />
-                    </linearGradient>
-                    <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="#6366f1" />
-                      <stop offset="50%" stopColor="#ec4899" />
-                      <stop offset="100%" stopColor="#3b82f6" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M 0 100 Q 80 40, 160 70 T 320 20 L 400 35 L 400 120 L 0 120 Z" fill="url(#curveGradient)" />
-                  <path d="M 0 100 Q 80 40, 160 70 T 320 20 L 400 35" fill="none" stroke="url(#lineGradient)" strokeWidth="4" strokeLinecap="round" />
-                  <circle cx="320" cy="20" r="6" fill="#ec4899" stroke="#ffffff" strokeWidth="2" />
-                </svg>
-              </div>
-            </div>
-
-            {/* Floating Mini Decorative Cards */}
-            <div className="mkt-floating-cards">
-              <div className="mkt-mini-pill pill-lead">
-                <Target size={15} />
-                <span>Lead Pipeline Active</span>
-              </div>
-              <div className="mkt-mini-pill pill-growth">
-                <TrendingUp size={15} />
-                <span>High Engagement</span>
-              </div>
-            </div>
-          </div>
+          <span className="mekka-brand-name">Mekka</span>
+          <span className="mekka-brand-divider">/</span>
+          <span className="mekka-brand-tagline">Where marketing moves.</span>
         </div>
 
+        <div className="mekka-top-actions">
+          <Link to="/register" className="mekka-secondary-link">Request access</Link>
+        </div>
+      </header>
 
-        {/* RIGHT LOGIN AREA (~40-45%) */}
-        <div className="mkt-auth-form-wrapper">
+      {/* Main Full-Screen Composition */}
+      <main className="mekka-main-composition">
+        
+        {/* Left Editorial Section & Signature Marketing Orbit Visual */}
+        <div className="mekka-editorial-section">
           
-          {/* Mobile Header Banner */}
-          <div className="mkt-mobile-brand">
-            <div className="mkt-brand-logo">∞</div>
+          <div className="mekka-editorial-header">
+            <h1 className="mekka-headline">
+              Marketing,<br />
+              <span className="mekka-headline-accent">without the noise.</span>
+            </h1>
+            <p className="mekka-subhead">
+              One workspace for campaigns, leads, engagement, and growth.
+            </p>
+          </div>
+
+          {/* Signature "Marketing Orbit" Decorative SVG Illustration */}
+          <div 
+            className="mekka-orbit-container"
+            style={{ transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0px)` }}
+          >
+            <svg viewBox="0 0 500 360" className="mekka-orbit-svg">
+              <defs>
+                <linearGradient id="orbitLineGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#6D5DF5" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#FF7E67" stopOpacity="0.2" />
+                </linearGradient>
+              </defs>
+
+              {/* Orbital Rings */}
+              <circle cx="250" cy="180" r="140" stroke="#E5E3DC" strokeWidth="1" strokeDasharray="4 6" fill="none" />
+              <circle cx="250" cy="180" r="85" stroke="#EEDDFD" strokeWidth="1" fill="none" />
+
+              {/* Connected Lines to Orbit Nodes */}
+              <line x1="250" y1="180" x2="150" y2="90" stroke="url(#orbitLineGrad)" strokeWidth="1.5" />
+              <line x1="250" y1="180" x2="350" y2="90" stroke="url(#orbitLineGrad)" strokeWidth="1.5" />
+              <line x1="250" y1="180" x2="380" y2="200" stroke="url(#orbitLineGrad)" strokeWidth="1.5" />
+              <line x1="250" y1="180" x2="280" y2="300" stroke="url(#orbitLineGrad)" strokeWidth="1.5" />
+              <line x1="250" y1="180" x2="120" y2="240" stroke="url(#orbitLineGrad)" strokeWidth="1.5" />
+
+              {/* Central Mekka Core Node */}
+              <g transform="translate(250, 180)">
+                <circle cx="0" cy="0" r="28" fill="#FFFFFF" stroke="#6D5DF5" strokeWidth="2" />
+                <path d="M-6 -6 L1.25 -1.25 L6 -6 L1.25 1.25 L6 6 L-1.25 1.25 L-6 6 L-1.25 -1.25 Z" fill="#6D5DF5" transform="scale(1.2)" />
+              </g>
+
+              {/* Node 1: Campaigns */}
+              <g transform="translate(150, 90)">
+                <circle cx="0" cy="0" r="18" fill="#FFFFFF" stroke="#6D5DF5" strokeWidth="1.5" />
+                <text x="0" y="32" textAnchor="middle" className="orbit-node-label">Campaigns</text>
+              </g>
+
+              {/* Node 2: Audience */}
+              <g transform="translate(350, 90)">
+                <circle cx="0" cy="0" r="16" fill="#FFFFFF" stroke="#FF7E67" strokeWidth="1.5" />
+                <text x="0" y="30" textAnchor="middle" className="orbit-node-label">Audience</text>
+              </g>
+
+              {/* Node 3: Analytics */}
+              <g transform="translate(380, 200)">
+                <circle cx="0" cy="0" r="20" fill="#FFFFFF" stroke="#6D5DF5" strokeWidth="1.5" />
+                <text x="0" y="34" textAnchor="middle" className="orbit-node-label">Analytics</text>
+              </g>
+
+              {/* Node 4: Growth */}
+              <g transform="translate(280, 300)">
+                <circle cx="0" cy="0" r="18" fill="#FFFFFF" stroke="#FF7E67" strokeWidth="1.5" />
+                <text x="0" y="32" textAnchor="middle" className="orbit-node-label">Growth</text>
+              </g>
+
+              {/* Node 5: Leads */}
+              <g transform="translate(120, 240)">
+                <circle cx="0" cy="0" r="16" fill="#FFFFFF" stroke="#6D5DF5" strokeWidth="1.5" />
+                <text x="0" y="30" textAnchor="middle" className="orbit-node-label">Leads</text>
+              </g>
+            </svg>
+          </div>
+
+          {/* Minimal Feature Pills */}
+          <div className="mekka-feature-pills">
+            <span className="mekka-pill"><span className="pill-dot dot-violet"></span> Digital growth infrastructure</span>
+            <span className="mekka-pill"><span className="pill-dot dot-coral"></span> Multi-channel intelligence</span>
+          </div>
+
+        </div>
+
+        {/* Right Section & Floating Refined Form */}
+        <div className="mekka-form-section">
+          
+          {/* Mobile Top Brand Lockup */}
+          <div className="mekka-mobile-lockup">
+            <div className="mekka-signature-mark">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#6D5DF5" />
+              </svg>
+            </div>
             <div>
-              <div className="mkt-brand-name">Mekka</div>
-              <div className="mkt-brand-tagline">Digital Marketing Platform</div>
+              <span className="mekka-brand-name">Mekka</span>
+              <div className="mekka-brand-tagline">Where marketing moves.</div>
             </div>
           </div>
 
-          <div className="mkt-login-card">
+          <div className="mekka-floating-card">
             
-            <div className="mkt-card-header">
-              <h2>Welcome back 👋</h2>
-              <p>Sign in to manage your marketing workspace.</p>
+            <div className="mekka-card-head">
+              <h2>Sign in to Mekka</h2>
+              <p>Enter your credentials to access your workspace.</p>
             </div>
-            
+
             {error && (
-              <div className="mkt-alert-error" role="alert">
-                <span className="mkt-error-icon">⚠️</span>
-                <div className="mkt-error-body">
-                  <strong>Unable to sign in</strong>
-                  <p>{error}</p>
+              <div className="mekka-error-banner" role="alert">
+                <span className="error-dot"></span>
+                <div>
+                  <strong className="error-head">Couldn't sign you in</strong>
+                  <p className="error-text">{error}</p>
                 </div>
               </div>
             )}
-        
-            <form onSubmit={onSubmit} autoComplete="on" className="mkt-form">
+
+            <form onSubmit={onSubmit} autoComplete="on" className="mekka-form">
               
-              <div className="mkt-form-group">
-                <label htmlFor="email">Email Address</label>
-                <div className="mkt-input-wrapper">
-                  <Mail className="mkt-input-icon" size={18} />
+              <div className="mekka-field-group">
+                <label htmlFor="email">Email address</label>
+                <div className="mekka-input-box">
+                  <Mail className="mekka-icon-left" size={17} />
                   <input 
                     id="email"
                     type="email" 
-                    className="mkt-input with-icon" 
+                    className="mekka-input with-left-icon" 
                     name="email"
                     value={email}
                     onChange={onChange}
@@ -194,15 +217,15 @@ const Login = () => {
                   />
                 </div>
               </div>
-              
-              <div className="mkt-form-group">
+
+              <div className="mekka-field-group">
                 <label htmlFor="password">Password</label>
-                <div className="mkt-input-wrapper">
-                  <Lock className="mkt-input-icon" size={18} />
+                <div className="mekka-input-box">
+                  <Lock className="mekka-icon-left" size={17} />
                   <input 
                     id="password"
                     type={showPassword ? 'text' : 'password'} 
-                    className="mkt-input with-icon with-action" 
+                    className="mekka-input with-left-icon with-right-action" 
                     name="password"
                     value={password}
                     onChange={onChange}
@@ -212,23 +235,23 @@ const Login = () => {
                   />
                   <button 
                     type="button" 
-                    className="mkt-pwd-toggle"
+                    className="mekka-eye-btn"
                     onClick={() => setShowPassword(!showPassword)}
                     tabIndex="-1"
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
                   </button>
                 </div>
               </div>
 
-              <div className="mkt-form-group">
+              <div className="mekka-field-group">
                 <label htmlFor="role">Role</label>
-                <div className="mkt-input-wrapper">
-                  <Shield className="mkt-input-icon" size={18} />
+                <div className="mekka-input-box">
+                  <Shield className="mekka-icon-left" size={17} />
                   <select
                     id="role"
-                    className="mkt-input with-icon mkt-select"
+                    className="mekka-input with-left-icon mekka-select"
                     name="role"
                     value={role}
                     onChange={onChange}
@@ -245,28 +268,36 @@ const Login = () => {
 
               <button 
                 type="submit" 
-                className="mkt-btn-submit"
+                className="mekka-continue-btn"
                 disabled={loading}
               >
                 {loading ? (
-                  <span className="mkt-spinner"></span>
+                  <span className="mekka-btn-loader"></span>
                 ) : (
                   <>
-                    <span>Sign In</span>
-                    <ArrowRight size={18} />
+                    <span>Continue</span>
+                    <ArrowRight size={17} />
                   </>
                 )}
               </button>
+
             </form>
-            
-            <div className="mkt-card-footer">
-              <p>Don't have an account? <Link to="/register" className="mkt-link">Request Access</Link></p>
+
+            <div className="mekka-card-foot">
+              <p>Don't have an account? <Link to="/register" className="mekka-link">Request access</Link></p>
             </div>
 
           </div>
         </div>
 
-      </div>
+      </main>
+
+      {/* Footer Signature */}
+      <footer className="mekka-page-footer">
+        <span>© Mekka Platform</span>
+        <span className="footer-dot">•</span>
+        <span>Privacy & Terms</span>
+      </footer>
     </div>
   );
 };
