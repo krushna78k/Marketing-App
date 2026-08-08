@@ -1,0 +1,117 @@
+.metric-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+  
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+  
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+  
+.card-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+  
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(to right, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+  
+.card-trend {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+  
+.text-success {
+  color: var(--success);
+}
+  
+.text-danger {
+  color: var(--danger);
+}
+  
+.text-muted {
+  color: var(--text-muted);
+}
+  
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+  
+@media (max-width: 1024px) {
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+}
+  
+/* Recharts customization */
+.recharts-cartesian-grid-horizontal line {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+  
+.recharts-tooltip-cursor {
+  fill: rgba(255, 255, 255, 0.05);
+}
+  
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
+}
+  
+/* Loading state */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  animation: pulse 2s infinite;
+}
+  
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+  
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+  
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

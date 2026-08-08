@@ -1,0 +1,151 @@
+/* LeadList.css - Professional SaaS Design */
+
+.lead-page-wrapper {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lead-page-wrapper .page-header {
+  position: relative;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 24px;
+}
+
+.lead-page-wrapper .page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 4px;
+  color: #f8fafc;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Badges - Professional and Clean */
+.badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.badge-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.badge-error   { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.badge-info    { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+.badge-primary { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+.badge-purple  { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+
+.badge-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+/* Modal specific for Leads - Clean SaaS Look */
+.lead-modal-content {
+  background: #1e293b !important; /* Solid dark slate */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 12px !important;
+  padding: 32px !important;
+}
+
+.lead-modal-content h2 {
+  color: #f8fafc !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: 24px !important;
+}
+
+/* Form Section Headers */
+.form-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 24px 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-section-title:first-child {
+  margin-top: 0;
+}
+
+/* Input Fields overrides for better contrast in modal */
+.lead-modal-content .input-field {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #f8fafc;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lead-modal-content .input-field:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+.lead-modal-content label {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Timeline animations */
+.timeline-event {
+  padding: 12px 0 12px 16px;
+  position: relative;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-event::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid #1e293b;
+}
+
+.timeline-event-action {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f8fafc;
+}
+
+.timeline-event-date {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Empty state icon */
+.empty-state-icon-leads {
+  background: rgba(255, 255, 255, 0.05);
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}

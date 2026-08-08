@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Environment Variables (Secrets)
+.env
+backend/.env
+frontend/.env
+
+# Build outputs
+dist/
+build/
+
+# Logs and Uploads
+backend/logs/
+backend/uploads/
+
+# IDE
+.vscode/
+.idea/

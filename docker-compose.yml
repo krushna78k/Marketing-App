@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: marketing-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: marketing-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/marketing-app
+      - JWT_SECRET=supersecretjwtkeythatshouldbechangedinproduction
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: marketing-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  mongo-backup:
+    image: mongo:latest
+    container_name: marketing-mongo-backup
+    entrypoint: /bin/sh -c "while true; do sleep 86400; mongodump --host mongo --port 27017 --out /backups/dump-`date +%Y-%m-%d`; done"
+    volumes:
+      - ./backups:/backups
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:

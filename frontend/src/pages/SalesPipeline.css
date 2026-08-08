@@ -1,0 +1,102 @@
+.pipeline-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.pipeline-board {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  flex: 1;
+}
+
+.pipeline-column {
+  min-width: 280px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.column-header h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.deal-count {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.droppable-area {
+  flex: 1;
+  min-height: 100px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.droppable-area.dragging-over {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.deal-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: grab;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.deal-card:active {
+  cursor: grabbing;
+}
+
+.deal-card.is-dragging {
+  transform: rotate(2deg);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary-color);
+}
+
+.deal-title {
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.deal-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--success);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.deal-lead {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
