@@ -24,12 +24,12 @@ body {
   background-size: 400% 400%;
   animation: auroraGradient 15s ease infinite;
   color: var(--text-main);
-  min-height: 100vh;
+  height: 100dvh;
   margin: 0;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevents global page scroll */
 }
 
 body::before,
