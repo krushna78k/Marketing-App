@@ -1,12 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Home, Tag, DollarSign, Layout, Layers, LogOut, Settings, MessageSquare, Mail, MessageCircle, Share2, Globe, List, GitCommit, BarChart2 } from 'lucide-react';
+import { Home, Tag, DollarSign, Layout, Layers, LogOut, Settings, MessageSquare, Mail, MessageCircle, Share2, Globe, List, GitCommit, BarChart2, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Sidebar.css';
 
 const Sidebar = () => {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -32,10 +33,16 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar glass-panel">
-      <div className="sidebar-header">
+    <div className={`sidebar glass-panel ${isCollapsed ? 'collapsed' : ''}`}>
+      <div 
+        className="sidebar-header" 
+        onClick={() => setIsCollapsed(false)}
+        onDoubleClick={() => setIsCollapsed(true)}
+        title="Single click to expand, Double click to collapse"
+        style={{ cursor: 'pointer' }}
+      >
         <div className="logo-icon">∞</div>
-        <h2>Mekka</h2>
+        {!isCollapsed && <h2>Mekka</h2>}
       </div>
       
       <div className="nav-menu">
@@ -44,26 +51,33 @@ const Sidebar = () => {
             to={link.path} 
             key={link.name}
             className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+            title={isCollapsed ? link.name : ""}
           >
             {link.icon}
-            <span>{link.name}</span>
+            {!isCollapsed && <span>{link.name}</span>}
           </NavLink>
         ))}
       </div>
 
       <div className="sidebar-footer">
-        <div className="user-info">
-          <div className="user-avatar">
+        {!isCollapsed ? (
+          <div className="user-info">
+            <div className="user-avatar">
+              {user?.name?.charAt(0) || 'U'}
+            </div>
+            <div className="user-details">
+              <span className="user-name">{user?.name || 'User'}</span>
+              <span className="user-role">{user?.role || 'Admin'}</span>
+            </div>
+          </div>
+        ) : (
+          <div className="user-avatar" style={{ margin: '0 auto', marginBottom: '16px' }} title={user?.name || 'User'}>
             {user?.name?.charAt(0) || 'U'}
           </div>
-          <div className="user-details">
-            <span className="user-name">{user?.name || 'User'}</span>
-            <span className="user-role">{user?.role || 'Admin'}</span>
-          </div>
-        </div>
-        <button className="logout-btn" onClick={handleLogout}>
+        )}
+        <button className="logout-btn" onClick={handleLogout} title="Logout">
           <LogOut size={18} />
-          <span>Logout</span>
+          {!isCollapsed && <span>Logout</span>}
         </button>
       </div>
     </div>

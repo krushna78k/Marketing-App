@@ -6,6 +6,7 @@
   padding: 24px;
   position: sticky;
   top: 24px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-header {
@@ -128,4 +129,30 @@
 
 .logout-btn:hover {
   background: rgba(239, 68, 68, 0.1);
+}
+
+/* Collapsed State Styles */
+.sidebar.collapsed {
+  width: 80px;
+  align-items: center;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.sidebar.collapsed .logo-icon {
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+}
+
+.sidebar.collapsed .nav-link {
+  justify-content: center;
+  padding: 12px;
+}
+
+.sidebar.collapsed .logout-btn {
+  padding: 12px;
 }
