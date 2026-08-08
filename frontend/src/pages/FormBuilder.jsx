@@ -36,7 +36,7 @@ const FormBuilder = () => {
     if (fields.length === 0) return alert('Please add at least one field to your form.');
 
     try {
-      const res = await fetch('http://localhost:5000/api/forms', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/forms`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -30,7 +30,7 @@ const SocialManager = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/social/posts', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/social/posts`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -44,7 +44,7 @@ const SocialManager = () => {
 
   const fetchAnalytics = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/social/analytics', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/social/analytics`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -68,7 +68,7 @@ const SocialManager = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/social/posts', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/social/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

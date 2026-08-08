@@ -23,7 +23,7 @@ const WhatsAppBuilder = () => {
 
   const fetchTemplates = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/whatsapp/templates', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/whatsapp/templates`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -39,7 +39,7 @@ const WhatsAppBuilder = () => {
     if (!templateName || !content) return alert('Please fill in both name and content.');
 
     try {
-      const res = await fetch('http://localhost:5000/api/whatsapp/templates', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/whatsapp/templates`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const WhatsAppBuilder = () => {
     if (!selectedTemplateId || !campaignTitle) return alert('Please fill in required fields');
 
     try {
-      const res = await fetch('http://localhost:5000/api/whatsapp/dispatch', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/whatsapp/dispatch`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

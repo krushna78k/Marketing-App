@@ -58,7 +58,7 @@ const CampaignList = () => {
     
     setUploading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/files/upload', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/files/upload`, {
         method: 'POST',
         headers: {
           'x-auth-token': token

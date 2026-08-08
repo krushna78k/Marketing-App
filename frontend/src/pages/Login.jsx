@@ -28,11 +28,11 @@ const Login = () => {
         }
       };
       const body = JSON.stringify({ email, password, role });
-      const res = await axios.post('http://localhost:5000/api/auth/login', body, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/login`, body, config);
       localStorage.setItem('token', res.data.token);
       
       // Update global auth state immediately
-      const userRes = await axios.get('http://localhost:5000/api/auth/me', {
+      const userRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/me`, {
         headers: { 'x-auth-token': res.data.token }
       });
       setUser(userRes.data);

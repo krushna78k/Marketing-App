@@ -22,7 +22,7 @@ const SmsBuilder = () => {
 
   const fetchTemplates = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/sms/templates', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/sms/templates`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -39,7 +39,7 @@ const SmsBuilder = () => {
     if (content.length > 160) return alert('SMS content must be 160 characters or less.');
 
     try {
-      const res = await fetch('http://localhost:5000/api/sms/templates', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/sms/templates`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const SmsBuilder = () => {
     if (!selectedTemplateId || !campaignTitle) return alert('Please fill in required fields');
 
     try {
-      const res = await fetch('http://localhost:5000/api/sms/dispatch', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/sms/dispatch`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

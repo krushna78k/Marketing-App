@@ -24,7 +24,7 @@ const EmailBuilder = () => {
 
   const fetchTemplates = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/emails/templates', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/emails/templates`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -43,7 +43,7 @@ const EmailBuilder = () => {
       const { design, html } = data;
       
       try {
-        const res = await fetch('http://localhost:5000/api/emails/templates', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/emails/templates`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const EmailBuilder = () => {
     if (!selectedTemplateId || !campaignTitle) return alert('Please fill in required fields');
 
     try {
-      const res = await fetch('http://localhost:5000/api/emails/dispatch', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/emails/dispatch`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

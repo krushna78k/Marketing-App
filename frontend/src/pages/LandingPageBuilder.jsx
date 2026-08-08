@@ -38,7 +38,7 @@ const LandingPageBuilder = () => {
     if (!title) return alert('Please enter an internal Page Title first.');
 
     try {
-      const res = await fetch('http://localhost:5000/api/pages', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/pages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const LandingPageBuilder = () => {
   const fetchAnalytics = async (id) => {
     if (!id) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/pages/${id}/analytics`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/pages/${id}/analytics`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {

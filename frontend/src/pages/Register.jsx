@@ -26,7 +26,7 @@ const Register = () => {
         }
       };
       const body = JSON.stringify({ name, email, password });
-      const res = await axios.post('http://localhost:5000/api/auth/register', body, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/register`, body, config);
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard'); // Will be created later
     } catch (err) {

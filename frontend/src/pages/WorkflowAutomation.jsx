@@ -32,7 +32,7 @@ const WorkflowAutomation = () => {
     if (nodes.length === 0) return alert('Please add at least one action node.');
 
     try {
-      const res = await fetch('http://localhost:5000/api/workflows', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/workflows`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const WorkflowAutomation = () => {
   const fetchExecutions = async () => {
     if (!workflowId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/workflows/${workflowId}/executions`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/workflows/${workflowId}/executions`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
@@ -80,7 +80,7 @@ const WorkflowAutomation = () => {
     if (status !== 'Active') return alert('Workflow must be saved as Active before testing.');
 
     try {
-      const res = await fetch(`http://localhost:5000/api/workflows/${workflowId}/trigger`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/workflows/${workflowId}/trigger`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

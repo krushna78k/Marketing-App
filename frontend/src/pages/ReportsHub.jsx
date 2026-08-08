@@ -23,7 +23,7 @@ const ReportsHub = () => {
 
   const fetchReportData = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/analytics/reports', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/analytics/reports`, {
         headers: { 'x-auth-token': token }
       });
       if (res.ok) {
