@@ -7,7 +7,7 @@
   flex: 1;
   font-family: 'Inter', sans-serif;
   color: #f8fafc;
-  overflow: hidden; /* We manage internal scrolling per tab */
+  overflow-y: auto; /* Allow scrolling if screen is too small */
 }
 
 /* Header & Status */
