@@ -13,7 +13,7 @@ const MainLayout = () => {
         </div>
         
         {/* MAIN PAGE CONTENT */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
           <Outlet />
         </div>
       </div>

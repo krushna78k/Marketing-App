@@ -212,7 +212,7 @@ const EmailBuilder = () => {
             */}
             <EmailEditor 
               ref={emailEditorRef} 
-              style={{ height: '100%' }}
+              style={{ flex: 1, minHeight: 0, width: '100%' }}
               options={{ 
                 appearance: { 
                   theme: 'dark',

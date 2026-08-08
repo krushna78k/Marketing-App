@@ -4,7 +4,7 @@
 .eb-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
   font-family: 'Inter', sans-serif;
   color: #f8fafc;
   overflow: hidden; /* We manage internal scrolling per tab */
