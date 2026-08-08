@@ -5,10 +5,26 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
-// Reusing premium tab styles
-import './EmailBuilder.css'; 
+import './ReportsHub.css';
 
-const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#a855f7', '#06b6d4'];
+const COLORS = ['#8b5cf6', '#ec4899', '#14b8a6', '#f59e0b', '#3b82f6', '#10b981'];
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rh-custom-tooltip">
+        {label && <div className="rh-tooltip-label">{label}</div>}
+        {payload.map((entry, index) => (
+          <div key={`item-${index}`} className="rh-tooltip-item" style={{ color: entry.color }}>
+            <span>{entry.name || 'Count'}</span>
+            <span style={{ fontWeight: 700 }}>{entry.value}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
 const ReportsHub = () => {
   const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'channels', 'sources'
@@ -56,7 +72,7 @@ const ReportsHub = () => {
       head: [['Stage', 'Count']],
       body: reportData.funnel.map(item => [item.name, item.value]),
       theme: 'grid',
-      headStyles: { fillColor: [99, 102, 241] }
+      headStyles: { fillColor: [139, 92, 246] }
     });
 
     // 2. Channels Table
@@ -75,7 +91,7 @@ const ReportsHub = () => {
         ['WhatsApp', 'Read', reportData.whatsapp.read]
       ],
       theme: 'grid',
-      headStyles: { fillColor: [16, 185, 129] }
+      headStyles: { fillColor: [20, 184, 166] }
     });
 
     // 3. Sources Table
@@ -94,7 +110,6 @@ const ReportsHub = () => {
   const exportExcel = () => {
     if (!reportData) return;
     
-    // Construct Worksheets
     const wsFunnel = XLSX.utils.json_to_sheet(reportData.funnel);
     const wsSources = XLSX.utils.json_to_sheet(reportData.sources);
     const wsChannels = XLSX.utils.json_to_sheet([
@@ -139,53 +154,50 @@ const ReportsHub = () => {
   if (loading) return <div className="page-content"><div className="loading-state">Loading Reports Hub...</div></div>;
 
   return (
-    <div className="page-content email-builder-wrapper" style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 40px)' }}>
-      <div className="page-header" style={{ marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
-        <div style={{ flex: '1 1 300px' }}>
-          <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <BarChart2 size={28} color="#10b981" /> Reports & Analytics Hub
+    <div className="reports-hub">
+      <div className="rh-header">
+        <div className="rh-title-wrapper">
+          <h1>
+            <BarChart2 size={32} color="#10b981" /> Reports & Analytics
           </h1>
           <p>Deep-dive into your Campaign Performance, Lead Sources, and Marketing Channels.</p>
         </div>
         
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-          <div className="tab-navigation" style={{ display: 'flex', gap: '8px', background: 'rgba(0,0,0,0.2)', padding: '6px', borderRadius: '8px', flexWrap: 'wrap' }}>
-            <button className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
-              <Activity size={16} /> Overview
+        <div className="rh-actions-bar">
+          <div className="rh-tabs">
+            <button className={`rh-tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+              <Activity size={18} /> Overview
             </button>
-            <button className={`tab-btn ${activeTab === 'channels' ? 'active' : ''}`} onClick={() => setActiveTab('channels')}>
-              <MessageSquare size={16} /> Channels
+            <button className={`rh-tab-btn ${activeTab === 'channels' ? 'active' : ''}`} onClick={() => setActiveTab('channels')}>
+              <MessageSquare size={18} /> Channels
             </button>
-            <button className={`tab-btn ${activeTab === 'sources' ? 'active' : ''}`} onClick={() => setActiveTab('sources')}>
-              <Globe size={16} /> Sources
+            <button className={`rh-tab-btn ${activeTab === 'sources' ? 'active' : ''}`} onClick={() => setActiveTab('sources')}>
+              <Globe size={18} /> Sources
             </button>
           </div>
           
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-             <button className="btn-secondary" onClick={exportCSV} title="Export CSV" style={{ padding: '8px' }}><Download size={18} /> CSV</button>
-             <button className="btn-secondary" onClick={exportExcel} title="Export Excel" style={{ padding: '8px', color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.3)' }}><Download size={18} /> Excel</button>
-             <button className="btn-primary" onClick={exportPDF} title="Export PDF" style={{ padding: '8px', background: '#ef4444' }}><Download size={18} /> PDF</button>
+          <div className="rh-export-group">
+             <button className="rh-btn rh-btn-csv" onClick={exportCSV} title="Export CSV"><Download size={18} /> CSV</button>
+             <button className="rh-btn rh-btn-excel" onClick={exportExcel} title="Export Excel"><Download size={18} /> Excel</button>
+             <button className="rh-btn rh-btn-pdf" onClick={exportPDF} title="Export PDF"><Download size={18} /> PDF</button>
           </div>
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div className="rh-content">
         
         {/* OVERVIEW TAB */}
         {activeTab === 'overview' && reportData && (
-          <div style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{ marginBottom: '24px', color: '#f8fafc' }}>Conversion Funnel</h2>
-            <div className="glass-panel" style={{ padding: '32px', height: '400px' }}>
-              <ResponsiveContainer>
+          <div className="rh-tab-pane rh-container-centered">
+            <h2 className="rh-section-title">Conversion Funnel</h2>
+            <div className="rh-glass-panel" style={{ height: '500px' }}>
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={reportData.funnel} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                  <XAxis dataKey="name" stroke="#cbd5e1" tickLine={false} axisLine={false} />
-                  <YAxis stroke="#cbd5e1" tickLine={false} axisLine={false} />
-                  <RechartsTooltip 
-                    cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                    contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                  />
-                  <Bar dataKey="value" fill="#6366f1" radius={[8, 8, 0, 0]} maxBarSize={60}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                  <XAxis dataKey="name" stroke="#cbd5e1" tickLine={false} axisLine={false} tick={{ fill: '#cbd5e1', fontSize: 13 }} />
+                  <YAxis stroke="#cbd5e1" tickLine={false} axisLine={false} tick={{ fill: '#cbd5e1', fontSize: 13 }} />
+                  <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
+                  <Bar dataKey="value" radius={[12, 12, 0, 0]} maxBarSize={70}>
                     {reportData.funnel.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
@@ -198,65 +210,71 @@ const ReportsHub = () => {
 
         {/* CHANNELS TAB */}
         {activeTab === 'channels' && reportData && (
-          <div style={{ padding: '32px 16px', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          <div className="rh-tab-pane rh-grid-3">
             
-            <div className="glass-panel" style={{ padding: '24px' }}>
-               <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: '#3b82f6' }}>
-                 <Mail size={20} /> Email Analytics
-               </h3>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
-                   <span style={{ color: '#94a3b8' }}>Total Sent</span>
-                   <span style={{ fontWeight: 'bold' }}>{reportData.email.total}</span>
+            <div className="rh-glass-panel rh-stat-card rh-theme-email">
+               <div className="rh-stat-header">
+                 <div className="rh-stat-icon-wrapper">
+                   <Mail size={24} />
                  </div>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px' }}>
-                   <span style={{ color: '#34d399' }}>Opened / Clicked</span>
-                   <span style={{ fontWeight: 'bold', color: '#10b981' }}>{reportData.email.opened}</span>
-                 </div>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>
-                   <span style={{ color: '#fca5a5' }}>Bounced</span>
-                   <span style={{ fontWeight: 'bold', color: '#ef4444' }}>{reportData.email.bounced}</span>
-                 </div>
+                 <h3 className="rh-stat-title">Email Performance</h3>
+               </div>
+               
+               <div className="rh-stat-row">
+                 <span className="rh-stat-label">Total Sent</span>
+                 <span className="rh-stat-value">{reportData.email.total}</span>
+               </div>
+               <div className="rh-stat-row highlight">
+                 <span className="rh-stat-label">Opened / Clicked</span>
+                 <span className="rh-stat-value" style={{ color: '#10b981' }}>{reportData.email.opened}</span>
+               </div>
+               <div className="rh-stat-row warning">
+                 <span className="rh-stat-label">Bounced</span>
+                 <span className="rh-stat-value" style={{ color: '#ef4444' }}>{reportData.email.bounced}</span>
                </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '24px' }}>
-               <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: '#f59e0b' }}>
-                 <MessageSquare size={20} /> SMS Analytics
-               </h3>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
-                   <span style={{ color: '#94a3b8' }}>Total Dispatched</span>
-                   <span style={{ fontWeight: 'bold' }}>{reportData.sms.total}</span>
+            <div className="rh-glass-panel rh-stat-card rh-theme-sms">
+               <div className="rh-stat-header">
+                 <div className="rh-stat-icon-wrapper">
+                   <MessageSquare size={24} />
                  </div>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px' }}>
-                   <span style={{ color: '#34d399' }}>Delivered</span>
-                   <span style={{ fontWeight: 'bold', color: '#10b981' }}>{reportData.sms.delivered}</span>
-                 </div>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>
-                   <span style={{ color: '#fca5a5' }}>Failed Delivery</span>
-                   <span style={{ fontWeight: 'bold', color: '#ef4444' }}>{reportData.sms.failed}</span>
-                 </div>
+                 <h3 className="rh-stat-title">SMS Reach</h3>
+               </div>
+               
+               <div className="rh-stat-row">
+                 <span className="rh-stat-label">Total Dispatched</span>
+                 <span className="rh-stat-value">{reportData.sms.total}</span>
+               </div>
+               <div className="rh-stat-row highlight">
+                 <span className="rh-stat-label">Delivered Successfully</span>
+                 <span className="rh-stat-value" style={{ color: '#10b981' }}>{reportData.sms.delivered}</span>
+               </div>
+               <div className="rh-stat-row warning">
+                 <span className="rh-stat-label">Failed Delivery</span>
+                 <span className="rh-stat-value" style={{ color: '#ef4444' }}>{reportData.sms.failed}</span>
                </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '24px' }}>
-               <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: '#25D366' }}>
-                 <MessageCircle size={20} /> WhatsApp Analytics
-               </h3>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
-                   <span style={{ color: '#94a3b8' }}>Total Dispatched</span>
-                   <span style={{ fontWeight: 'bold' }}>{reportData.whatsapp.total}</span>
+            <div className="rh-glass-panel rh-stat-card rh-theme-whatsapp">
+               <div className="rh-stat-header">
+                 <div className="rh-stat-icon-wrapper">
+                   <MessageCircle size={24} />
                  </div>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(56, 189, 248, 0.1)', borderRadius: '8px' }}>
-                   <span style={{ color: '#7dd3fc' }}>Read Receipts</span>
-                   <span style={{ fontWeight: 'bold', color: '#38bdf8' }}>{reportData.whatsapp.read}</span>
-                 </div>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px' }}>
-                   <span style={{ color: '#34d399' }}>Delivered</span>
-                   <span style={{ fontWeight: 'bold', color: '#10b981' }}>{reportData.whatsapp.delivered}</span>
-                 </div>
+                 <h3 className="rh-stat-title">WhatsApp Engagement</h3>
+               </div>
+               
+               <div className="rh-stat-row">
+                 <span className="rh-stat-label">Total Dispatched</span>
+                 <span className="rh-stat-value">{reportData.whatsapp.total}</span>
+               </div>
+               <div className="rh-stat-row highlight">
+                 <span className="rh-stat-label">Read Receipts</span>
+                 <span className="rh-stat-value" style={{ color: '#38bdf8' }}>{reportData.whatsapp.read}</span>
+               </div>
+               <div className="rh-stat-row success">
+                 <span className="rh-stat-label">Delivered</span>
+                 <span className="rh-stat-value" style={{ color: '#10b981' }}>{reportData.whatsapp.delivered}</span>
                </div>
             </div>
 
@@ -265,9 +283,9 @@ const ReportsHub = () => {
 
         {/* SOURCES TAB */}
         {activeTab === 'sources' && reportData && (
-          <div style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{ marginBottom: '24px', color: '#f8fafc' }}>Lead Source Distribution</h2>
-            <div className="glass-panel" style={{ padding: '32px', height: '450px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="rh-tab-pane rh-container-centered">
+            <h2 className="rh-section-title">Lead Source Distribution</h2>
+            <div className="rh-glass-panel" style={{ height: '550px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {reportData.sources.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -275,24 +293,22 @@ const ReportsHub = () => {
                       data={reportData.sources}
                       cx="50%"
                       cy="45%"
-                      innerRadius={80}
-                      outerRadius={120}
-                      paddingAngle={5}
+                      innerRadius={100}
+                      outerRadius={160}
+                      paddingAngle={6}
                       dataKey="value"
+                      stroke="none"
                     >
                       {reportData.sources.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <RechartsTooltip 
-                      contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
-                      itemStyle={{ color: '#f8fafc' }}
-                    />
-                    <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                    <RechartsTooltip content={<CustomTooltip />} />
+                    <Legend verticalAlign="bottom" height={40} iconType="circle" wrapperStyle={{ fontSize: '15px', color: '#cbd5e1' }} />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="text-muted">No source data available.</div>
+                <div style={{ color: '#94a3b8', fontSize: '1.2rem' }}>No source data available.</div>
               )}
             </div>
           </div>
